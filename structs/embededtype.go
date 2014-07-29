@@ -14,5 +14,6 @@ type Phone struct {
 }
 func main() {
   p := new(Phone)
-  p.Talk()
+  p.Name="Shiju"
+  p.Talk() //a.Person.Talk() will aso work
 }
