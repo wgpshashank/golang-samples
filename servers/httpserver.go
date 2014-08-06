@@ -1,8 +1,14 @@
 package main
 
-import ("net/http" ; "io")
+import (
+	"fmt"
+	"log"
+	"net/http"
+	"os"
+	"io"
+)
 
-func hello(res http.ResponseWriter, req *http.Request) {
+func helloHandler(res http.ResponseWriter, req *http.Request) {
     res.Header().Set(
         "Content-Type", 
         "text/html",
@@ -20,7 +26,26 @@ func hello(res http.ResponseWriter, req *http.Request) {
 </html>`,
     )
 }
+func defaultHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Welcome to Go web apps!")
+}
 func main() {
-    http.HandleFunc("/hello", hello)
-    http.ListenAndServe(":8000", nil)   
+    http.HandleFunc("/", defaultHandler)
+    http.HandleFunc("/hello", helloHandler)
+    fmt.Println("listening...")
+    http.ListenAndServe(getPort(), nil)      
+        err := http.ListenAndServe(getPort(), nil)
+        if err != nil {
+                log.Fatal("ListenAndServe: ", err)
+                return
+        }	
+}
+func getPort() string {
+        var port = os.Getenv("PORT")
+	// Set a default port if there is nothing in the hosting environment
+	if port == "" {
+		port = "3000"
+		fmt.Println("INFO: No PORT environment variable detected, defaulting to " + port)		
+	}
+	return ":" + port
 }
