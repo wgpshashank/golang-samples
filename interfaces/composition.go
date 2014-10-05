@@ -11,7 +11,14 @@ type Person struct {
 	age int
 	phone string
 }
-
+//A person method
+func (p Person ) SayHello() {
+	fmt.Printf("Hi, I am %s, %d yearls old\n", p.name, p.age)
+}
+//A person method
+func (p Person) ToString() {
+	fmt.Printf("[Name: %s, Age: %d, Phone: %s]\n", p.name,p.age, p.phone)
+}
 type Student struct {
 	Person //type embedding for composition
 	university string
@@ -21,13 +28,6 @@ type Developer struct {
 	Person //type embedding for composition
 	company string
 	platform string
-}
-//A person method 
-func (p Person ) SayHello() {
-	fmt.Printf("Hi, I am %s, %d yearls old\n", p.name, p.age)
-}
-func (p Person) ToString() {
-	fmt.Printf("[Name: %s, Age: %d, Phone: %s]\n", p.name,p.age, p.phone)
 }
 //Developer's method overrides Person's SayHello
 func (d Developer) SayHello() {
