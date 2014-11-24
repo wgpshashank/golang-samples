@@ -14,7 +14,7 @@ func main() {
 	// Declare an anonymous function and create a goroutine.
 	go func() {
 
-		for count := 0; count <= 100; count++ {
+		for count := 1; count <= 100; count++ {
 				fmt.Printf("%d ", count)
 		}
 	}()

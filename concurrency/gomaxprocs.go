@@ -3,6 +3,7 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 	"sync"
 )
 
@@ -12,15 +13,18 @@ func main() {
 	// Add a count of two, one for each goroutine.
 	var wg sync.WaitGroup
 	wg.Add(2)
-
+	// Allocate a context for every available core.
+	//runtime.GOMAXPROCS(runtime.NumCPU())
+	// Allocate two contexts for the scheduler to use.
+	runtime.GOMAXPROCS(2)
 	fmt.Println("Start Goroutines")
 
 	// Declare an anonymous function and create a goroutine.
 	go func() {
 		// Schedule the call to Done to tell main we are done.
 		defer wg.Done()
-		for count := 1; count <= 100; count++ {
-			fmt.Printf("%d ", count)
+		for count := 1; count <= 1000; count++ {
+			fmt.Printf("A%d ", count)
 		}
 	}()
 
@@ -28,8 +32,8 @@ func main() {
 	go func() {
 		// Schedule the call to Done to tell main we are done.
 		defer wg.Done()
-		for count := 100; count >= 1; count-- {
-			fmt.Printf("%d ", count)
+		for count := 1000; count >= 1; count-- {
+			fmt.Printf("B%d ", count)
 		}
 	}()
 
