@@ -25,12 +25,13 @@ func main() {
 	wg.Add(2)
 
 	// Launch two players.
-	go player("Nadal", court)
-	go player("Djokovic", court)
+	go player("Shiju", court)
+	go player("Var", court)
 
 	// Start the set.
+	fmt.Println("channel begin")
 	court <- 1
-
+	fmt.Println("channel started")
 	// Wait for the game to finish.
 	wg.Wait()
 }
@@ -39,7 +40,7 @@ func main() {
 func player(name string, court chan int) {
 	// Schedule the call to Done to tell main we are done.
 	defer wg.Done()
-
+	fmt.Printf("Player %s started\n", name)
 	for {
 		// Wait for the ball to be hit back to us.
 		ball, ok := <-court
