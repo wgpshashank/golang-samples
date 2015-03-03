@@ -88,6 +88,6 @@ func main() {
 		"Golang CoE",
 		[]Member{alex, shiju, chris},
 	}
-	//get details of meetup people
+	//Get details of the Team
 	team.GetTeamDetails()
 }
