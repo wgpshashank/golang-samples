@@ -1,4 +1,4 @@
-// This sample program demonstrates how to create goroutines
+// This sample program demonstrates how to create goroutines with channels
 package main
 
 import (
@@ -17,9 +17,9 @@ func main() {
 
 	fmt.Println("Start Goroutines")
 	//launch a goroutine with label "A"
-	go printCount("A", count)
+	go printCounts("A", count)
 	//launch a goroutine with label "B"
-	go printCount("B", count)
+	go printCounts("B", count)
 	fmt.Println("channel begin")
 	count <- 1
 	// Wait for the goroutines to finish.
@@ -34,7 +34,6 @@ func printCounts(label string, count chan int) {
 	for {
 		val, ok := <-count
 		if !ok {
-			// If the channel was closed we won.
 			fmt.Println("Channel was closed")
 			return
 		}
@@ -46,7 +45,7 @@ func printCounts(label string, count chan int) {
 			return
 		}
 		val++
-		// Hit the ball back to the opposing player.
+		// Send count back to the other goroutine.
 		count <- val
 	}
 }
