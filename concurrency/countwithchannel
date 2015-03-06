@@ -32,6 +32,7 @@ func printCounts(label string, count chan int) {
 	// Schedule the call to WaitGroup's Done to tell we are done.
 	defer wg.Done()
 	for {
+		//Receives message from Channel
 		val, ok := <-count
 		if !ok {
 			fmt.Println("Channel was closed")
